@@ -6,103 +6,6 @@
 // #include <utility>
 // #include <iomanip>
 
-// using namespace std;
-
-//*********************************************************************************************************************
-
-    // double word;
-    // vector<double> myWord;
-    
-    // std::ifstream f("/Users/richard/C++/AlgoritmiskProblemlosning/AlgoritmiskProblemlosning/intervalcover.in");
-    
-    // std::ofstream myfile;
-    // myfile.open ("/Users/richard/C++/AlgoritmiskProblemlosning/AlgoritmiskProblemlosning/intervalcover.ans");
-
-
-    // while(f >> word){
-        
-    //     word = round(word*10);
-    //     myWord.push_back(word/10);
-    // }
-
-    // int counter = 0;
-
-    // while(counter < myWord.size()){
-        
-    //     pair<double, double> interval(myWord[counter], myWord[counter +1]);
-
-    //     counter += 2;
-
-    //     int lookinterval = myWord[counter];
-
-    //     for(int i = 0; i < lookinterval; i++){
-            
-    //         counter++;
-    //         pair<double, double> _test_interval(myWord[counter], myWord[counter +1]);
-            
-    //         vector<pair<double, double> > test_interval;
-    //                    test_interval[i] = _test_interval;
-            
-    //         cout << interval.first;
-    //         cout << test_interval[i].first;
-            
-    //         if (interval.first >= test_interval[i].first && interval.second <= test_interval[i].second)
-    //         {
-    //             myfile << i << endl;
-    //         }
-    //      }
-    //     counter++;
-        
-    // }
-    // myfile.close();
-    
-//*********************************************************************************************************************
-
-
-
-
-    // string input;
- 
-    // vector<pair<double, double>> interval;
-    // vector<pair<double, double>> test_interval;
-    
-    // //complex<double> c
-    
-    // while (getline(f, input)) {
-        
-    //     int i = input.find(' ');
-    //     string s1 = input.substr(0,i);
-    //     string s2 = input.substr(i+1);
-    //     double d1 = stod(s1);
-    //     double d2 = stod(s2);
-        
-    //     interval = (d1, d2); //pseudo
-        
-    //     getline(f, input);
-        
-    //     int lookinterval = stoi(input);
-        
-    //     for(int i = 0; i < lookinterval; i++){
-            
-    //         getline(f,input);
-            
-    //         int i = input.find(' ');
-    //         double s1 = input.substr(0,i);
-    //         double s2 = input.substr(i+1);
-            
-    //         test_interval[i] = (s1, s2);
-            
-    //     }
-
-    //     test_interval = interval 
-    //     cout 
-        
-        
-        
-        
-        
-    // }
-    
     
 
 
@@ -112,6 +15,7 @@
 #include <stack>
 #include <map>
 #include <algorithm>
+
 
 using namespace std;
 
@@ -151,7 +55,7 @@ bool compareIntervals(pair<double, double> l, pair<double, double> r){
     return (l.first < r.first);
 }
 
-void minimalInterval(pair<double, double> interval,vector<pair<double, double> >& vec_pairs){
+void intervalChecker(pair<double, double> interval,vector<pair<double, double> >& vec_pairs){
     vector<int> indexes(1, 0);
     //current looks at start interval
     double current = interval.first;
@@ -206,7 +110,7 @@ int main(void){
 
     while(true){
         pair<double, double> intervalPair;
-//change file to cin
+        //change file to cin
         if(!getInterval(file, intervalPair)){
             break;
         }
@@ -216,14 +120,20 @@ int main(void){
         file >> n_testcases;
 
         vector<pair<double, double> > pairs;
-        for(int i = 0; i < n_testcases; i++){
+        while(n_testcases--){
             pair<double, double> intervalPair;
             //change file to cin
             getInterval(file, intervalPair);
             pairs.push_back(intervalPair);
         }
 
-        minimalInterval(intervalPair, pairs);
+        sort(begin(intervalPair), end(intervalPair),
+        [](pair<double, double> x, pair<double, double> y){
+
+            return x.second < y.second;
+        });
+
+        intervalChecker(intervalPair, pairs);
 
     }
     return 0;

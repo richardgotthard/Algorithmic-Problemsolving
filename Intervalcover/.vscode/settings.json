@@ -6,6 +6,10 @@
         "type_traits": "cpp",
         "utility": "cpp",
         "string": "cpp",
-        "istream": "cpp"
-    }
+        "istream": "cpp",
+        "iterator": "cpp",
+        "memory": "cpp",
+        "regex": "cpp"
+    },
+    "C_Cpp.errorSquiggles": "Disabled"
 }
